@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Web Scraper with LLM Integration</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Advanced Web Scraper</h1>
+            <p class="subtitle">Client-side web scraping with LLM integration</p>
+        </header>
+
+        <main>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="scraper">Scraper</button>
+                <button class="tab-btn" data-tab="settings">Settings</button>
+                <button class="tab-btn" data-tab="logs">Logs</button>
+                <button class="tab-btn" data-tab="visualization">Visualization</button>
+                <button class="tab-btn" data-tab="help">Help</button>
+            </div>
+
+            <div class="tab-content active" id="scraper-tab">
+                <div class="input-section">
+                    <h2>URL Input</h2>
+                    <div class="url-input">
+                        <input type="text" id="url-input" placeholder="Enter URL to scrape (e.g., https://example.com)">
+                        <button id="start-btn" class="primary-btn">Start</button>
+                        <button id="stop-btn" class="secondary-btn" disabled>Stop</button>
+                        <button id="pause-btn" class="secondary-btn" disabled>Pause</button>
+                    </div>
+
+                    <div class="crawl-options">
+                        <h3>Crawl Options</h3>
+                        <div class="option-group">
+                            <div class="option">
+                                <label for="max-depth">Max Depth:</label>
+                                <input type="number" id="max-depth" min="1" max="10" value="3">
+                            </div>
+                            <div class="option">
+                                <label for="crawl-delay">Delay (ms):</label>
+                                <input type="number" id="crawl-delay" min="0" max="10000" value="1000">
+                            </div>
+                            <div class="option">
+                                <label for="max-retries">Max Retries:</label>
+                                <input type="number" id="max-retries" min="0" max="5" value="3">
+                            </div>
+                            <div class="option">
+                                <label for="max-pages">Max Pages:</label>
+                                <input type="number" id="max-pages" min="1" max="1000" value="100">
+                            </div>
+                        </div>
+                        <div class="option-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="respect-robots" checked>
+                                <label for="respect-robots">Respect robots.txt</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="follow-external">
+                                <label for="follow-external">Follow External Links</label>
+                                <span class="warning-icon" title="Warning: Following external links may significantly increase crawl scope and time.">⚠️</span>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="use-sitemap" checked>
+                                <label for="use-sitemap">Use Sitemap (if available)</label>
+                            </div>
+                        </div>
+                        <div class="option-group">
+                            <div class="option full-width">
+                                <label for="include-pattern">URL Include Pattern (regex):</label>
+                                <input type="text" id="include-pattern" placeholder="e.g., /blog/.*">
+                            </div>
+                            <div class="option full-width">
+                                <label for="exclude-pattern">URL Exclude Pattern (regex):</label>
+                                <input type="text" id="exclude-pattern" placeholder="e.g., /admin/.*">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="extraction-options">
+                        <h3>Extraction Options</h3>
+                        <div class="option-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="extract-text" checked>
+                                <label for="extract-text">Text</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="extract-images">
+                                <label for="extract-images">Images</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="extract-links">
+                                <label for="extract-links">Links</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="extract-videos">
+                                <label for="extract-videos">Videos</label>
+                            </div>
+                        </div>
+                        <div class="option-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="include-headers">
+                                <label for="include-headers">Include Headers/Footers</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="extract-css">
+                                <label for="extract-css">Extract CSS</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="extract-html">
+                                <label for="extract-html">Raw HTML</label>
+                            </div>
+                        </div>
+                        <div class="option-group">
+                            <div class="option full-width">
+                                <label for="css-selector">Custom CSS Selector:</label>
+                                <input type="text" id="css-selector" placeholder="e.g., article.content">
+                            </div>
+                            <div class="option full-width">
+                                <label for="xpath-selector">Custom XPath:</label>
+                                <input type="text" id="xpath-selector" placeholder="e.g., //article[@class='content']">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="llm-options">
+                        <h3>LLM Integration</h3>
+                        <div class="option-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="enable-llm">
+                                <label for="enable-llm">Enable LLM</label>
+                            </div>
+                        </div>
+                        <div class="llm-settings" id="llm-settings" style="display: none;">
+                            <div class="option-group">
+                                <div class="option">
+                                    <label for="llm-provider">LLM Provider:</label>
+                                    <select id="llm-provider">
+                                        <option value="openrouter">OpenRouter</option>
+                                        <option value="webllm">WebLLM (Local)</option>
+                                    </select>
+                                </div>
+                                <div class="option openrouter-option">
+                                    <label for="openrouter-model">Model:</label>
+                                    <select id="openrouter-model">
+                                        <option value="openai/gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                        <option value="openai/gpt-4">GPT-4</option>
+                                        <option value="anthropic/claude-3-opus">Claude 3 Opus</option>
+                                        <option value="anthropic/claude-3-sonnet">Claude 3 Sonnet</option>
+                                        <option value="mistralai/mistral-7b">Mistral 7B</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="option-group openrouter-option">
+                                <div class="option full-width">
+                                    <label for="api-key">OpenRouter API Key:</label>
+                                    <input type="password" id="api-key" placeholder="Enter your OpenRouter API key">
+                                    <button id="save-api-key" class="small-btn">Save Key</button>
+                                </div>
+                            </div>
+                            <div class="option-group">
+                                <div class="option full-width">
+                                    <label for="llm-prompt">LLM Prompt:</label>
+                                    <textarea id="llm-prompt" rows="3" placeholder="Enter your prompt for the LLM (e.g., 'Extract the main product features from this page')"></textarea>
+                                </div>
+                            </div>
+                            <div class="option-group">
+                                <div class="option">
+                                    <label for="llm-task">Common Tasks:</label>
+                                    <select id="llm-task">
+                                        <option value="">Select a task...</option>
+                                        <option value="extract">Extract specific information</option>
+                                        <option value="summarize">Summarize content</option>
+                                        <option value="sentiment">Analyze sentiment</option>
+                                        <option value="structure">Convert to structured data</option>
+                                    </select>
+                                </div>
+                                <button id="apply-task" class="small-btn">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <h2>Output</h2>
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span id="progress-text">Ready</span>
+                            <span id="progress-stats"></span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div id="progress-bar" class="progress-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="output-display">
+                        <div class="output-tabs">
+                            <button class="output-tab-btn active" data-output="preview">Preview</button>
+                            <button class="output-tab-btn" data-output="llm">LLM</button>
+                        </div>
+                        
+                        <div class="output-content active" id="preview-output">
+                            <div id="output-preview" class="output-area">
+                                <div class="placeholder-text">Scraped content will appear here</div>
+                            </div>
+                        </div>
+                        
+                        <div class="output-content" id="llm-output">
+                            <div class="chat-container">
+                                <div id="chat-messages" class="chat-messages">
+                                    <div class="placeholder-text">LLM responses will appear here when enabled</div>
+                                </div>
+                                <div class="chat-input-container">
+                                    <textarea id="chat-input" placeholder="Ask the LLM about the scraped content..." disabled></textarea>
+                                    <button id="send-chat" class="primary-btn" disabled>Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="download-options">
+                        <h3>Download Options</h3>
+                        <div class="download-buttons">
+                            <button id="download-markdown" class="download-btn" disabled>
+                                <i class="fas fa-file-alt"></i> Markdown
+                            </button>
+                            <button id="download-json" class="download-btn" disabled>
+                                <i class="fas fa-file-code"></i> JSON
+                            </button>
+                            <button id="download-csv" class="download-btn" disabled>
+                                <i class="fas fa-file-csv"></i> CSV
+                            </button>
+                            <button id="download-text" class="download-btn" disabled>
+                                <i class="fas fa-file-lines"></i> Text
+                            </button>
+                            <button id="download-zip" class="download-btn" disabled>
+                                <i class="fas fa-file-zipper"></i> ZIP
+                            </button>
+                            <button id="download-llm" class="download-btn" disabled>
+                                <i class="fas fa-robot"></i> LLM Format
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="settings-tab">
+                <h2>Advanced Settings</h2>
+                
+                <div class="settings-section">
+                    <h3>Same-Origin Policy Bypass</h3>
+                    <div class="warning-box">
+                        <p><strong>⚠️ Warning:</strong> These methods have significant security and reliability limitations. Use with caution and only when necessary.</p>
+                    </div>
+                    
+                    <div class="option-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="enable-jsonp">
+                            <label for="enable-jsonp">Enable JSONP</label>
+                        </div>
+                        <div class="info-text">
+                            <p>JSONP can only retrieve JSON data and requires the target server to support JSONP callbacks. It has serious security implications as it executes any code returned by the server.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="enable-iframe">
+                            <label for="enable-iframe">Enable IFrame</label>
+                        </div>
+                        <div class="info-text">
+                            <p>IFrame method is limited by X-Frame-Options headers and Content Security Policy of target sites. Many sites block being loaded in iframes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="enable-proxy">
+                            <label for="enable-proxy">Use Proxy Server</label>
+                        </div>
+                        <div class="proxy-settings" id="proxy-settings" style="display: none;">
+                            <div class="option full-width">
+                                <label for="proxy-url">Proxy Server URL:</label>
+                                <input type="text" id="proxy-url" placeholder="e.g., http://localhost:3000/proxy">
+                            </div>
+                            <div class="info-text">
+                                <p>Using a proxy server is the most reliable method to bypass same-origin policy restrictions. You'll need to set up and run the included proxy server.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Performance Settings</h3>
+                    <div class="option-group">
+                        <div class="option">
+                            <label for="concurrent-requests">Concurrent Requests:</label>
+                            <input type="number" id="concurrent-requests" min="1" max="10" value="3">
+                        </div>
+                        <div class="info-text">
+                            <p>Higher values may improve speed but increase resource usage and the risk of being blocked.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <div class="option">
+                            <label for="request-timeout">Request Timeout (ms):</label>
+                            <input type="number" id="request-timeout" min="1000" max="60000" value="30000">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Data Storage</h3>
+                    <div class="option-group">
+                        <button id="clear-storage" class="danger-btn">Clear Stored Data</button>
+                        <div class="info-text">
+                            <p>This will clear all saved API keys and cached data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="logs-tab">
+                <h2>Logs</h2>
+                <div class="log-controls">
+                    <button id="clear-logs" class="secondary-btn">Clear Logs</button>
+                    <div class="log-filter">
+                        <label for="log-level">Filter:</label>
+                        <select id="log-level">
+                            <option value="all">All</option>
+                            <option value="info">Info</option>
+                            <option value="warning">Warnings</option>
+                            <option value="error">Errors</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="log-container" class="log-container">
+                    <div class="log-entry info">
+                        <span class="log-time">[00:00:00]</span>
+                        <span class="log-level">INFO</span>
+                        <span class="log-message">System initialized and ready.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="visualization-tab">
+                <h2>Website Structure Visualization</h2>
+                <div class="visualization-controls">
+                    <button id="refresh-viz" class="secondary-btn">Refresh</button>
+                    <div class="viz-options">
+                        <label for="viz-layout">Layout:</label>
+                        <select id="viz-layout">
+                            <option value="breadthfirst">Breadth First</option>
+                            <option value="circle">Circle</option>
+                            <option value="concentric">Concentric</option>
+                            <option value="grid">Grid</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="visualization-container" class="visualization-container">
+                    <div class="placeholder-text">Website structure visualization will appear here after crawling</div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="help-tab">
+                <h2>Help & Documentation</h2>
+                
+                <div class="help-section">
+                    <h3>Getting Started</h3>
+                    <p>This tool allows you to scrape and analyze websites directly in your browser. Follow these steps:</p>
+                    <ol>
+                        <li>Enter a URL in the input field</li>
+                        <li>Configure crawl and extraction options</li>
+                        <li>Click "Start" to begin scraping</li>
+                        <li>View results in the output section</li>
+                        <li>Download data in your preferred format</li>
+                    </ol>
+                </div>
+                
+                <div class="help-section">
+                    <h3>Same-Origin Policy Limitations</h3>
+                    <p>Due to browser security restrictions (Same-Origin Policy), direct scraping of external websites is limited. Options to work around these limitations:</p>
+                    <ul>
+                        <li><strong>JSONP:</strong> Limited to JSON data and requires server support</li>
+                        <li><strong>IFrames:</strong> Limited by X-Frame-Options headers on target sites</li>
+                        <li><strong>Proxy Server:</strong> Most reliable method, requires setting up the included Node.js proxy</li>
+                        <li><strong>Browser Extension:</strong> Install the companion extension for unrestricted scraping</li>
+                    </ul>
+                    <p>For full functionality without limitations, consider using the browser extension or proxy server.</p>
+                </div>
+                
+                <div class="help-section">
+                    <h3>LLM Integration</h3>
+                    <p>This tool can leverage Large Language Models to enhance scraping capabilities:</p>
+                    <ul>
+                        <li>Extract specific information based on natural language queries</li>
+                        <li>Summarize scraped content</li>
+                        <li>Analyze sentiment</li>
+                        <li>Convert unstructured data to structured formats</li>
+                    </ul>
+                    <p>To use LLM features, enable LLM integration and provide an OpenRouter API key or use the local WebLLM option.</p>
+                </div>
+                
+                <div class="help-section">
+                    <h3>Proxy Server Setup</h3>
+                    <p>To set up the proxy server:</p>
+                    <ol>
+                        <li>Navigate to the <code>proxy-server</code> directory</li>
+                        <li>Run <code>npm install</code> to install dependencies</li>
+                        <li>Start the server with <code>node server.js</code></li>
+                        <li>The proxy will run on <code>http://localhost:3000</code> by default</li>
+                        <li>In the app settings, enable proxy and enter the proxy URL</li>
+                    </ol>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Advanced Web Scraper with LLM Integration | <a href="https://github.com/yourusername/web-scraper" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.26.0/cytoscape.min.js"></script>
+
+    <!-- Core Scripts -->
+    <script src="js/core/crawler.js"></script>
+    <script src="js/core/scraper.js"></script>
+    
+    <!-- UI Scripts -->
+    <script src="js/ui/main.js"></script>
+    <script src="js/ui/input.js"></script>
+    <script src="js/ui/output.js"></script>
+    <script src="js/ui/settings.js"></script>
+    
+    <!-- Data Handling -->
+    <script src="js/data/data.js"></script>
+    <script src="js/data/zip.js"></script>
+    
+    <!-- Visualization -->
+    <script src="js/viz/viz.js"></script>
+    
+    <!-- LLM Integration -->
+    <script src="js/llm/llm.js"></script>
+    <script src="js/llm/webllm.js"></script>
+    
+    <!-- Security -->
+    <script src="js/security/security.js"></script>
+    
+    <!-- Same-Origin Policy Bypass -->
+    <script src="js/bypass/jsonp.js"></script>
+    <script src="js/bypass/iframe.js"></script>
+    <script src="js/bypass/cors.js"></script>
+    
+    <!-- Proxy -->
+    <script src="js/proxy/proxy.js"></script>
+</body>
+</html>

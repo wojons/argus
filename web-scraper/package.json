@@ -1,0 +1,14 @@
+{
+  "name": "web-scraper",
+  "version": "1.0.0",
+  "description": "Advanced Web Scraper with LLM Integration",
+  "scripts": {
+    "start": "echo 'No start script defined'"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "cytoscape": "^3.26.0"
+  },
+  "devDependencies": {
+  }
+}

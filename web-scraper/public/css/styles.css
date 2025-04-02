@@ -1,0 +1,606 @@
+/* 
+ * Advanced Web Scraper with LLM Integration
+ * Main Stylesheet
+ */
+
+/* Base Styles and Reset */
+:root {
+    --primary-color: #4a6fa5;
+    --primary-dark: #3a5a8c;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --border-color: #dee2e6;
+    --bg-color: #f5f7fa;
+    --text-color: #333;
+    --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --border-radius: 4px;
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    margin-top: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Layout Components */
+header {
+    background-color: white;
+    padding: 1rem 0;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.subtitle {
+    color: var(--secondary-color);
+    font-size: 1rem;
+}
+
+main {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    margin-top: 2rem;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    background-color: var(--light-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--secondary-color);
+    transition: var(--transition);
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+    color: var(--primary-color);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+    font-weight: 500;
+}
+
+.tab-content {
+    display: none;
+    padding: 1.5rem;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Buttons */
+button {
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.primary-btn:disabled {
+    background-color: var(--secondary-color);
+    cursor: not-allowed;
+}
+
+.secondary-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+}
+
+.secondary-btn:hover {
+    background-color: #5a6268;
+}
+
+.secondary-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.danger-btn {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+}
+
+.danger-btn:hover {
+    background-color: #c82333;
+}
+
+.small-btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+.download-btn {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.download-btn:hover {
+    background-color: #e2e6ea;
+}
+
+.download-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.download-btn i {
+    font-size: 1rem;
+}
+
+/* Form Elements */
+input[type="text"],
+input[type="number"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(74, 111, 165, 0.25);
+}
+
+input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* Scraper Tab Layout */
+.input-section, .output-section {
+    padding: 1rem;
+}
+
+.url-input {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.url-input input {
+    flex-grow: 1;
+}
+
+.option-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.option {
+    flex: 1;
+    min-width: 150px;
+}
+
+.option.full-width {
+    flex-basis: 100%;
+}
+
+.checkbox-option {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.warning-icon {
+    color: var(--warning-color);
+    margin-left: 0.25rem;
+    cursor: help;
+}
+
+/* Output Display */
+.progress-container {
+    margin-bottom: 1rem;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--primary-color);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.output-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+}
+
+.output-tab-btn {
+    padding: 0.5rem 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    transition: var(--transition);
+    border-bottom: 2px solid transparent;
+}
+
+.output-tab-btn:hover {
+    color: var(--primary-color);
+}
+
+.output-tab-btn.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    font-weight: 500;
+}
+
+.output-content {
+    display: none;
+}
+
+.output-content.active {
+    display: block;
+}
+
+.output-area {
+    min-height: 300px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--light-color);
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.placeholder-text {
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 2rem 0;
+    font-style: italic;
+}
+
+.download-options {
+    margin-top: 1rem;
+}
+
+.download-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Chat/LLM UI */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--light-color);
+    margin-bottom: 1rem;
+}
+
+.chat-input-container {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chat-input-container textarea {
+    flex-grow: 1;
+    resize: none;
+    height: 60px;
+}
+
+.message {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    max-width: 80%;
+}
+
+.user-message {
+    background-color: #e3f2fd;
+    margin-left: auto;
+    border-top-right-radius: 0;
+}
+
+.llm-message {
+    background-color: #f1f1f1;
+    margin-right: auto;
+    border-top-left-radius: 0;
+}
+
+/* Settings Tab */
+.settings-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.warning-box {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+}
+
+.info-text {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Logs Tab */
+.log-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.log-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.log-container {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--light-color);
+    padding: 0.5rem;
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+.log-entry {
+    padding: 0.25rem 0.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.log-time {
+    color: var(--secondary-color);
+    margin-right: 0.5rem;
+}
+
+.log-level {
+    display: inline-block;
+    width: 70px;
+    font-weight: bold;
+}
+
+.log-entry.info .log-level {
+    color: var(--info-color);
+}
+
+.log-entry.warning .log-level {
+    color: var(--warning-color);
+}
+
+.log-entry.error .log-level {
+    color: var(--danger-color);
+}
+
+/* Visualization Tab */
+.visualization-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.viz-options {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.visualization-container {
+    height: 500px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--light-color);
+    position: relative;
+}
+
+/* Help Tab */
+.help-section {
+    margin-bottom: 2rem;
+}
+
+.help-section h3 {
+    margin-bottom: 0.5rem;
+}
+
+.help-section ul, .help-section ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.help-section li {
+    margin-bottom: 0.5rem;
+}
+
+code {
+    background-color: var(--light-color);
+    padding: 0.2rem 0.4rem;
+    border-radius: var(--border-radius);
+    font-family: monospace;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tab-btn {
+        flex-grow: 1;
+        text-align: center;
+        padding: 0.5rem;
+    }
+    
+    .url-input {
+        flex-direction: column;
+    }
+    
+    .option {
+        min-width: 100%;
+    }
+    
+    .download-buttons {
+        justify-content: center;
+    }
+}
+
+/* LLM Settings Toggle */
+#llm-settings, #proxy-settings {
+    padding: 1rem;
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+    margin-top: 0.5rem;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}

@@ -1,0 +1,106 @@
+# Cline Rules for Advanced Web Scraper Project
+
+## Project Description
+
+This file defines project-specific rules for the advanced web scraper project, ensuring consistency, code quality, security, and maintainability. It complements the global Custom Instructions used with Cline.
+
+## General
+
+* Use JavaScript (ES6+) for all code.
+* Follow the folder structure defined in the project: `@/web-scraper/`.
+* Adhere to clean code principles: readability, simplicity, and maintainability.
+* Prioritize modularity and component-based design.
+* Use a consistent code style (e.g., Airbnb style guide).
+* Use a linter (e.g., ESLint) and formatter (e.g., Prettier) and configure rules in `.eslintrc.js` and `.prettierrc.js`.
+
+## Error Handling
+
+* Implement robust error handling using `try...catch` blocks.
+* Log all errors with detailed messages, including file, function, error type, and stack trace.
+* Display user-friendly error messages in the UI.
+* Handle asynchronous errors and promise rejections appropriately.
+* Implement a centralized error logging mechanism.
+
+## Data Validation
+
+* Validate all user inputs (URLs, parameters, LLM prompts) to prevent errors and security vulnerabilities.
+* Implement data validation for scraped data to ensure accuracy, consistency, and data integrity.
+* Define schemas for structured data output and validate against them.
+* Sanitize user input to prevent injection attacks (especially important for LLM prompts).
+
+## UI Components
+
+* Structure UI components using a modular approach (e.g., separate files for each component).
+* Use a UI framework or library (e.g., React, Vue) for complex UI elements.
+* Use clear and descriptive names for components, elements, variables, and functions.
+* Follow a consistent styling approach (consider a CSS framework or methodology like BEM).
+* Prioritize accessibility in UI design (WCAG guidelines).
+* Implement UI tests for critical components.
+
+## Security
+
+* **Crucially:** Handle API keys securely. Use IndexedDB for storage and follow best practices outlined in `@/.external_context/research_docs/Client-Side Web Scraping Research_.md`.
+* Encrypt API keys before storing them in IndexedDB.
+* Implement robust authentication and authorization for the proxy server.
+* Carefully validate and sanitize all data received from external sources (websites, LLM APIs).
+* Be extremely mindful of potential security implications when handling user-provided prompts for LLMs.
+
+## Asynchronous Operations
+
+* Use `async/await` for all asynchronous operations (e.g., network requests, file operations, IndexedDB access, LLM API calls).
+* Handle promises correctly and avoid promise chains.
+* Avoid blocking the main thread and provide feedback to the user during long-running operations.
+
+## Web Scraping Best Practices
+
+* Respect `robots.txt` and `crawl-delay`.
+* Implement polite crawling techniques (e.g., user-agent rotation, request throttling).
+* Manage resources efficiently (e.g., limit concurrent connections, close browser instances).
+* Be mindful of website terms of service and legal/ethical considerations.
+* Implement robust retry mechanisms with exponential backoff.
+
+## LLM Integration
+
+* Follow the LLM integration guidelines in `@/.external_context/research_docs/Client-Side Web Scraping Research_.md` and `@/.external_context/research_docs/Web Scraping Tool Design Refined_.md`.
+* Handle LLM API requests and responses correctly, including error handling and rate limiting.
+* Provide clear and informative prompts to the LLM and allow users to customize them.
+* Implement mechanisms to prevent prompt injection vulnerabilities.
+* Carefully manage LLM context and token limits.
+
+## Same-Origin Policy Bypass
+
+* **Crucially:** Document the limitations and security risks of each same-origin policy bypass method clearly and prominently in the UI and documentation.
+* Implement JSONP and IFrame bypass methods with extreme caution and security best practices.
+* Encourage users to use CORS or the proxy server whenever possible.
+* Provide detailed instructions and warnings for users who choose to use JSONP or IFrames.
+
+## Browser Extension
+
+* Follow browser extension development best practices for security and performance.
+* Request only the necessary permissions.
+* Handle data securely and avoid storing sensitive information in the extension's storage.
+* Test the extension thoroughly across different browser versions.
+* Provide clear and concise documentation for the extension.
+
+## Proxy Server
+
+* Implement robust security measures for the proxy server, including authentication and authorization.
+* Log all requests and responses for debugging and security auditing.
+* Implement rate limiting and other mechanisms to prevent abuse.
+* Provide clear instructions on how to deploy and configure the proxy server.
+* Consider deploying the proxy server on a separate server to isolate it from the main application.
+
+## Testing
+
+* Write comprehensive unit tests for core functionalities, UI components, and data handling.
+* Implement integration tests to test the interaction between different modules.
+* Test error handling, edge cases, and security vulnerabilities.
+* Perform cross-browser testing for the main application and browser extensions.
+* Automate testing whenever possible.
+
+## Documentation
+
+* Document all functions, components, modules, and APIs clearly and concisely.
+* Maintain a consistent documentation style (e.g., JSDoc).
+* Use a documentation generator (e.g., JSDoc, Sphinx) to automate documentation creation.
+* Update documentation whenever code changes.
