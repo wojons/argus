@@ -4,11 +4,16 @@
   "description": "Proxy server for web scraper",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "lint": "eslint *.js",
+    "test": "echo 'Running proxy server tests...' && npm run lint"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
-    "request": "^2.88.2",
-    "cors": "^2.8.5"
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "eslint": "^9.23.0"
   }
 }

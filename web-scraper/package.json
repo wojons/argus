@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "Advanced Web Scraper with LLM Integration",
   "scripts": {
-    "start": "echo 'No start script defined'"
+    "start": "echo 'No start script defined'",
+    "lint": "eslint public/js/**/*.js",
+    "validate-html": "html-validator --file=public/index.html --verbose",
+    "test": "echo 'Running tests...' && npm run lint && npm run validate-html"
   },
   "dependencies": {
-    "jszip": "^3.10.1",
-    "cytoscape": "^3.26.0"
+    "cytoscape": "^3.26.0",
+    "jszip": "^3.10.1"
   },
   "devDependencies": {
+    "eslint": "^9.23.0",
+    "html-validator-cli": "^7.0.1"
   }
 }
